@@ -15,6 +15,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class RealCustomerService {
     private final RealCustomerRepository realCustomerRepository;
+
     public String generateCustomerCode(String birthDate, String nationalId) {
         String yearString = birthDate.substring(0, 3);
         String id = nationalId.substring(0, 4);
@@ -40,9 +41,11 @@ public class RealCustomerService {
         }
         return this.realCustomerRepository.save(realCustomer);
     }
+
     public RealCustomer getRealCustomerById(Long id) {
         return realCustomerRepository.findById(id).orElse(null);
     }
+
     public List<RealCustomer> findAllRealCustomers() {
         return this.realCustomerRepository.findAll();
     }
@@ -70,12 +73,12 @@ public class RealCustomerService {
     }
 
     public List<RealCustomer> search(RealCustomer realCustomer) {
-            return  realCustomerRepository.search(
-                    Optional.ofNullable(realCustomer.getFirstName()).orElse(""),
-                    Optional.ofNullable(realCustomer.getLastName()).orElse(""),
-                    Optional.ofNullable(realCustomer.getCustomerNumber()).orElse(""),
-                    Optional.ofNullable(realCustomer.getNationalId()).orElse("")
-            );
+        return realCustomerRepository.search(
+                Optional.ofNullable(realCustomer.getFirstName()).orElse(""),
+                Optional.ofNullable(realCustomer.getLastName()).orElse(""),
+                Optional.ofNullable(realCustomer.getCustomerNumber()).orElse(""),
+                Optional.ofNullable(realCustomer.getNationalId()).orElse("")
+        );
     }
 }
 

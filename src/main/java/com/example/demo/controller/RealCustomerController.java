@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.entity.RealCustomer;
 import com.example.demo.exception.InvalidNationalIDException;
 import com.example.demo.service.RealCustomerService;
-import com.example.demo.validation.ValidationOfNationalID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
