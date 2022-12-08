@@ -1,34 +1,17 @@
 package com.example.demo.entity;
 
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class LegalCustomer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String companyName;
-    @CreationTimestamp
-    private LocalDateTime registrationDate;
-    @Column(unique = true)
-    private String economicCode;
-    @Column(unique = true)
-    private String customerNumber;
+public class LegalCustomer extends Customer {
 
-    public LegalCustomer(Long id, String companyName, String economicCode, String customerNumber) {
-        this.id = id;
-        this.companyName = companyName;
-        this.economicCode = economicCode;
-        this.customerNumber = customerNumber;
-    }
 }

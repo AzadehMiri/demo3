@@ -43,13 +43,13 @@
                 <th>Company Name</th>
                 <td>
                     <input type="text" name="companyName" size="45"
-                           value="<c:out value="${legalCustomer.companyName}"/>"/>
+                           value="<c:out value="${legalCustomer.firstName}"/>"/>
                 </td>
             </tr>
                 <th>Economic Code</th>
                 <td>
                     <input type="text" name="economicCode" size="45"
-                           value="<c:out value="${legalCustomer.economicCode}"/>"/>
+                           value="<c:out value="${legalCustomer.nationalId}"/>"/>
                 </td>
             </tr>
             <tr>
@@ -78,15 +78,17 @@
             <th>Registration Date</th>
             <th>Economic Code</th>
             <th>Customer Number</th>
+            <th>Customer Type</th>
             <th>Action</th>
         </tr>
         <c:forEach var="legalCustomer" items="${legalCustomers}">
             <tr>
                 <td><c:out value="${legalCustomer.id}"/></td>
-                <td><c:out value="${legalCustomer.companyName}"/></td>
-                <td><c:out value="${legalCustomer.registrationDate}"/></td>
-                <td><c:out value="${legalCustomer.economicCode}"/></td>
+                <td><c:out value="${legalCustomer.firstName}"/></td>
+                <td><c:out value="${legalCustomer.birthDate}"/></td>
+                <td><c:out value="${legalCustomer.nationalId}"/></td>
                 <td><c:out value="${legalCustomer.customerNumber}"/></td>
+                <td><c:out value="${legalCustomer.customerType}"/></td>
                 <td>
                     <a  href="edit?id=<c:out value='${legalCustomer.id}'/>">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

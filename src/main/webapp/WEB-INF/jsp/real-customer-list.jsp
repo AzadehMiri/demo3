@@ -88,6 +88,7 @@
             <th>Date of Birth</th>
             <th>National Id</th>
             <th>Customer Number</th>
+            <th>Customer Type</th>
             <th>Action</th>
         </tr>
         <c:forEach var="legalCustomer" items="${realCustomers}">
@@ -99,6 +100,7 @@
                 <td><c:out value="${legalCustomer.birthDate}"/></td>
                 <td><c:out value="${legalCustomer.nationalId}"/></td>
                 <td><c:out value="${legalCustomer.customerNumber}"/></td>
+                <td><c:out value="${legalCustomer.customerType}"/></td>
                 <td>
                     <a  href="edit?id=<c:out value='${legalCustomer.id}'/>">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

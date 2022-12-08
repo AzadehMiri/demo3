@@ -10,6 +10,7 @@
             font-family: arial, sans-serif;
         }
     </style>
+
 </head>
 <body style="background-color: #FFFFE0; ">
 <center>
@@ -44,14 +45,21 @@
                 <tr>
                     <th>company name</th>
                     <td>
-                        <input type="text" name="companyName" size="45"
-                               value="<c:out value="${legalCustomer.companyName}"/>"/>
+                        <input type="text" name="firstName" size="45"
+                               value="<c:out value="${legalCustomer.firstName}"/>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Registration Date</th>
+                    <td>
+                        <input type="text" name="birthDate" size="10" minlength="10"
+                               maxlength="10" title="yyyy/yy/yy" value="<c:out value="${legalCustomer.birthDate}"/>"/>
                     </td>
                 </tr>
                     <th>Economic Code</th>
                     <td>
-                        <input type="text" name="economicCode" size="45"
-                               value="<c:out value="${legalCustomer.economicCode}"/>"/>
+                        <input type="text" name="nationalId"
+                               value="<c:out value="${legalCustomer.nationalId}"/>"/>
                     </td>
                 </tr>
                 <tr>

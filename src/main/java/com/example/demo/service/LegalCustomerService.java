@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.CustomerType;
 import com.example.demo.entity.LegalCustomer;
+import com.example.demo.entity.RealCustomer;
 import com.example.demo.repository.LegalCustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,23 +16,23 @@ import java.util.Random;
 public class LegalCustomerService {
     private final LegalCustomerRepository legalCustomerRepository;
 
-    public String generateCustomerCode(String economicCode) {
-        String yearString = economicCode.substring(0, 4);
+    public String generateCustomerCode() {
+       // String yearString = economicCode.substring(0, 4)
         Random random = new Random();
         int x = random.nextInt(900) + 100;
         String s = String.valueOf(x);
-        return s + yearString;
+        return "01"+s ;
     }
 
     public LegalCustomer add(LegalCustomer legalCustomer) {
-        String customerCode = generateCustomerCode(legalCustomer.getEconomicCode());
+        String customerCode = generateCustomerCode();
         //use Builder pattern
-        legalCustomer = LegalCustomer.builder()
-                .companyName(legalCustomer.getCompanyName())
-                .registrationDate(legalCustomer.getRegistrationDate())
-                .economicCode(legalCustomer.getEconomicCode())
-                .customerNumber(customerCode)
-                .build();
+
+        legalCustomer.setFirstName(legalCustomer.getFirstName());
+        legalCustomer.setBirthDate(legalCustomer.getBirthDate());
+        legalCustomer.setNationalId(legalCustomer.getNationalId());
+        legalCustomer.setCustomerNumber(customerCode);
+        legalCustomer.setCustomerType(CustomerType.LEGAL_CUSTOMER);
         return this.legalCustomerRepository.save(legalCustomer);
     }
 
@@ -49,8 +51,8 @@ public class LegalCustomerService {
     public LegalCustomer updateLegalCustomer(Long id, LegalCustomer legalCustomer) {
         LegalCustomer existingLegalCustomer = legalCustomerRepository.findById(id).orElse(null);
         assert existingLegalCustomer != null;
-        existingLegalCustomer.setCompanyName(Optional.ofNullable(legalCustomer.getCompanyName()).orElse(existingLegalCustomer.getCompanyName()));
-        existingLegalCustomer.setEconomicCode(Optional.ofNullable(legalCustomer.getEconomicCode()).orElse(existingLegalCustomer.getEconomicCode()));
+        existingLegalCustomer.setFirstName(Optional.ofNullable(legalCustomer.getFirstName()).orElse(existingLegalCustomer.getFirstName()));
+        existingLegalCustomer.setNationalId(Optional.ofNullable(legalCustomer.getNationalId()).orElse(existingLegalCustomer.getNationalId()));
         existingLegalCustomer.setCustomerNumber(Optional.ofNullable(legalCustomer.getCustomerNumber()).orElse(existingLegalCustomer.getCustomerNumber()));
         return legalCustomerRepository.save(existingLegalCustomer);
     }
@@ -61,8 +63,8 @@ public class LegalCustomerService {
 
     public List<LegalCustomer> search(LegalCustomer legalCustomer) {
         return legalCustomerRepository.search(
-                Optional.ofNullable(legalCustomer.getCompanyName()).orElse(""),
-                Optional.ofNullable(legalCustomer.getEconomicCode()).orElse(""),
+                Optional.ofNullable(legalCustomer.getFirstName()).orElse(""),
+                Optional.ofNullable(legalCustomer.getNationalId()).orElse(""),
                 Optional.ofNullable(legalCustomer.getCustomerNumber()).orElse("")
         );
     }

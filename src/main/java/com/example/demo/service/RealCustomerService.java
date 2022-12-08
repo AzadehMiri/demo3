@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Customer;
+import com.example.demo.entity.CustomerType;
 import com.example.demo.entity.RealCustomer;
 import com.example.demo.exception.InvalidNationalIDException;
 import com.example.demo.repository.RealCustomerRepository;
@@ -28,14 +30,14 @@ public class RealCustomerService {
     public RealCustomer add(RealCustomer realCustomer) throws InvalidNationalIDException {
         String customerCode = generateCustomerCode(realCustomer.getBirthDate(), realCustomer.getNationalId());
         //use Builder pattern
-        realCustomer = RealCustomer.builder()
-                .firstName(realCustomer.getFirstName())
-                .lastName(realCustomer.getLastName())
-                .fatherName(realCustomer.getFatherName())
-                .birthDate(realCustomer.getBirthDate())
-                .nationalId(realCustomer.getNationalId())
-                .customerNumber(customerCode)
-                .build();
+
+        realCustomer.setFirstName(realCustomer.getFirstName());
+        realCustomer.setLastName(realCustomer.getLastName());
+        realCustomer.setFatherName(realCustomer.getFatherName());
+        realCustomer.setBirthDate(realCustomer.getBirthDate());
+        realCustomer.setCustomerNumber(customerCode);
+        realCustomer.setNationalId(realCustomer.getNationalId());
+        realCustomer.setCustomerType(CustomerType.REAL_CUSTOMER);
         if (!ValidationOfNationalID.ValidationNationalID(realCustomer.getNationalId())) {
             throw new InvalidNationalIDException(realCustomer.getNationalId());
         }
