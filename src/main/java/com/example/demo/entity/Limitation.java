@@ -5,22 +5,26 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Setter
 @Getter
-@ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Facilities {
+public class Limitation {
     @Id
     @GeneratedValue
     private Long id;
-    private String facilitiesName;
-    private String interestRate;
-    @OneToMany(mappedBy = "facilities")
-    private List<Limitation> limitations;
+    private String limitationName;
+    private String MinimumContractPeriod;
+    private String MaximumContractPeriod;
+    private String MinimumContractAmount;
+    private String MaximumContractAmount;
+
+    @ManyToOne
+    @JoinColumn(name = "facilities_id")
+    private Facilities facilities;
 }
