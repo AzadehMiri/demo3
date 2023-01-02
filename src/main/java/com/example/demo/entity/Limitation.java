@@ -1,10 +1,12 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Setter
@@ -16,15 +18,16 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Limitation {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String limitationName;
-    private String MinimumContractPeriod;
-    private String MaximumContractPeriod;
-    private String MinimumContractAmount;
-    private String MaximumContractAmount;
+    private Integer minimumContractPeriod;
+    private Integer maximumContractPeriod;
+    private BigDecimal minimumContractAmount;
+    private BigDecimal maximumContractAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "facilities_id")
-    private Facilities facilities;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="facilityType_id")
+    @JsonIgnore
+    private FacilityType facilityType;
 }

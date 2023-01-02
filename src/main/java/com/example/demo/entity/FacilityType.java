@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,12 +16,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Facilities {
+public class FacilityType {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String facilitiesName;
+    private String name;
     private String interestRate;
-    @OneToMany(mappedBy = "facilities")
-    private List<Limitation> limitations;
+    @OneToMany(mappedBy = "facilityType",
+            cascade = CascadeType.ALL)
+    private List<Limitation> limitations = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "facilityTypes")
+    private List<Customer> customers;
+
+    @OneToMany(mappedBy = "facilityType")
+    private List<Facility> facilityList;
 }

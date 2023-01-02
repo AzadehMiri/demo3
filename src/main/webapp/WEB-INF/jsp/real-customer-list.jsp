@@ -1,67 +1,74 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Bank Management Application</title>
     <style>
-        table {
+        .list {
             font-family: arial, sans-serif;
             border-collapse: collapse;
-            width: 60%;
+            width: 80%;
+        }
+        .search {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 40%;
         }
 
         td, th {
             border: 1px solid #dddddd;
-            text-align: left;
+            text-align: right;
             padding: 8px;
         }
     </style>
 </head>
-<body style="background-color: #FFFFE0;">
+<body  style="background-color: #FFFFE0;">
 <center>
-<h1>Bank customer information management</h1>
+<h1>مدیریت اطلاعات مشتریان بانک</h1>
 <h2>
-    <a href="insert">Add New RealCustomer</a>
+    <a href="real-customer-insert">افزودن مشتری</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="list">List All RealCustomers</a>
+    <a href="real-customer-list">لیست مشتری حقیقی</a>
+
     </br>
     </br>
     </br>
+
 </h2>
     <hr>
- <form action="search" method="post">
-        <table align="center" style="vertical-align: center; margin-left:20%;">
+ <form action="real-customer-search" method="post">
+        <table class="search" align="center" dir="rtl" style="vertical-align: center; margin-left:30%;">
             <caption>
                 <h2>
-                    Search RealCustomer
+                    جستجوی پیشرفته
                 </h2>
             </caption>
             <tr>
-                <th>first name</th>
+                <th>نام</th>
                 <td>
                     <input type="text" name="firstName" size="45"
                            value="<c:out value="${realCustomer.firstName}"/>"/>
                 </td>
             </tr>
             <tr>
-                <th>last name</th>
+                <th>نام خانوادگی</th>
                 <td>
                     <input type="text" name="lastName" size="45"
                            value="<c:out value="${realCustomer.lastName}"/>"/>
                 </td>
             </tr>
             <tr>
-                <th>customer number</th>
+                <th>شماره مشتری</th>
                 <td>
                     <input type="text" name="customerNumber" size="45"
                            value="<c:out value="${realCustomer.customerNumber}"/>"/>
                 </td>
             </tr>
             <tr>
-                <th>national Id</th>
+                <th>کد ملی</th>
                 <td>
                     <input type="text" name="nationalId" size="45"
                            value="<c:out value="${realCustomer.nationalId}"/>"/>
@@ -74,43 +81,43 @@
                 </td>
             </tr>
         </table>
-    </form>
-    <hr>
+ </form>
 </center>
-<div  style="margin-top:50px; margin-left:200px; height:50px;">
-    <table style="margin-top: 0px;margin-left: 100px; ">
-        <caption><h2>List of real customers</h2></caption>
+
+<div style="margin-top:50px; margin-left:100px; height:50px;">
+    <table class="list" dir="rtl" style="margin-top: 0px;margin-left: 100px; ">
+        <caption><h2>لیست مشتری</h2></caption>
         <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Father Name</th>
-            <th>Date of Birth</th>
-            <th>National Id</th>
-            <th>Customer Number</th>
-            <th>Customer Type</th>
-            <th>Action</th>
+            <th> </th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>نام پدر</th>
+            <th>تاریخ تولد</th>
+            <th>کدملی</th>
+            <th>شماره مشتری</th>
+            <th>نوع مشتری</th>
+            <th>عملیات</th>
         </tr>
-        <c:forEach var="legalCustomer" items="${realCustomers}">
+        <c:forEach var="realCustomer" items="${realCustomers}">
             <tr>
-                <td><c:out value="${legalCustomer.id}"/></td>
-                <td><c:out value="${legalCustomer.firstName}"/></td>
-                <td><c:out value="${legalCustomer.lastName}"/></td>
-                <td><c:out value="${legalCustomer.fatherName}"/></td>
-                <td><c:out value="${legalCustomer.birthDate}"/></td>
-                <td><c:out value="${legalCustomer.nationalId}"/></td>
-                <td><c:out value="${legalCustomer.customerNumber}"/></td>
-                <td><c:out value="${legalCustomer.customerType}"/></td>
+                <td><c:out value="${realCustomer.id}"/></td>
+                <td><c:out value="${realCustomer.firstName}"/></td>
+                <td><c:out value="${realCustomer.lastName}"/></td>
+                <td><c:out value="${realCustomer.fatherName}"/></td>
+                <td><c:out value="${realCustomer.birthDate}"/></td>
+                <td><c:out value="${realCustomer.nationalId}"/></td>
+                <td><c:out value="${realCustomer.customerNumber}"/></td>
+                <td>مشتری حقیقی</td>
                 <td>
-                    <a  href="edit?id=<c:out value='${legalCustomer.id}'/>">Edit</a>
+                    <a  href="real-customer-edit?id=<c:out value='${realCustomer.id}'/>">ویرایش</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="delete?id=<c:out value='${legalCustomer.id}'/>">Delete</a>
+                    <a href="real-customer-delete?id=<c:out value='${realCustomer.id}'/>">حذف</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <h3>
-        <a href="/realCustomer/welcome">Go welcome</a>
+        <a href="/realCustomer/welcome">صفحه اصلی</a>
     </h3>
 </div>
 </body>

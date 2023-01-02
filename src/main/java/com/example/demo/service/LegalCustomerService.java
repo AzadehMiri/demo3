@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.entity.CustomerType;
 import com.example.demo.entity.LegalCustomer;
-import com.example.demo.entity.RealCustomer;
 import com.example.demo.repository.LegalCustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +16,11 @@ public class LegalCustomerService {
     private final LegalCustomerRepository legalCustomerRepository;
 
     public String generateCustomerCode() {
-       // String yearString = economicCode.substring(0, 4)
+        // String yearString = economicCode.substring(0, 4)
         Random random = new Random();
         int x = random.nextInt(900) + 100;
         String s = String.valueOf(x);
-        return "01"+s ;
+        return "01" + s;
     }
 
     public LegalCustomer add(LegalCustomer legalCustomer) {

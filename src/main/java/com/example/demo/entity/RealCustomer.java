@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,5 +15,4 @@ import javax.persistence.Entity;
 @ToString
 @AllArgsConstructor
 public class RealCustomer extends Customer {
-
 }

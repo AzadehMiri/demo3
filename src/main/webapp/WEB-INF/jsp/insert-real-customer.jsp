@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Bank Management Application</title>
     <style>
         td, th {
@@ -55,64 +55,52 @@
 </head>
 <body style="background-color: #FFFFE0; ">
 <center>
-    <h1>Bank customer information management</h1>
+    <h1>مدیریت اطلاعات مشتریان بانک</h1>
     <h2>
-        <a href="insert">Add New RealCustomer</a>
+        <a href="real-customer-insert">افزودن مشتری حقیقی</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="list">List All RealCustomers</a>
+        <a href="real-customer-list">لیست مشتریان</a>
     </h2>
 </center>
 <div align="center" style="margin-top:50px; margin-left:250px; height:50px;">
-    <c:if test="${realCustomer.id != null}">
-    <form action="update" method="post" name="myForm" onsubmit="validateForm()">
-        </c:if>
-        <c:if test="${realCustomer.id == null}">
-        <form action="add" method="post" name="myForm" onsubmit="validateForm()">
-            </c:if>
-            <table align="center" style="vertical-align: center; margin-left:20%;">
+        <form action="real-customer-add" method="post" name="myForm" onsubmit="validateForm()">
+            <table dir="rtl" align="center" style="vertical-align: center; margin-left:20%;">
                 <caption>
                     <h2>
-                        <c:if test="${realCustomer.id != null}">
-                            Edit RealCustomer
-                        </c:if>
-                        <c:if test="${realCustomer.id == null}">
-                            Add new RealCustomer
-                        </c:if>
+                           افزودن مشتری حقیقی
                     </h2>
                 </caption>
-                <c:if test="${realCustomer != null}">
                     <input type="hidden" name="id" value="<c:out value="${realCustomer.id}"/>"/>
-                </c:if>
                 <tr>
-                    <th>first name</th>
+                    <th>نام</th>
                     <td>
                         <input type="text" name="firstName" id="fname" onclick="return validateFirstNameForm()" size="45"
                                value="<c:out value="${realCustomer.firstName}"/>"/>
                     </td>
                 </tr>
                 <tr>
-                    <th>last name</th>
+                    <th>نام خانوادگی</th>
                     <td>
                         <input type="text" name="lastName" id="lname" onclick="return validateLastNameForm()" size="45"
                                value="<c:out value="${realCustomer.lastName}"/>"/>
                     </td>
                 </tr>
                 <tr>
-                    <th>father name</th>
+                    <th>نام پدر</th>
                     <td>
                         <input type="text" name="fatherName" size="45"
                                value="<c:out value="${realCustomer.fatherName}"/>"/>
                     </td>
                 </tr>
                 <tr>
-                    <th>birth of date</th>
+                    <th>تاریخ تولد</th>
                     <td>
                         <input type="text" name="birthDate" placeholder="yyyy/mm/dd" value="<c:out value="${realCustomer.birthDate}"/>"
                                size="10" min="1300/01/01" max="1420/01/01" title="yyyy/yy/yy" />
                     </td>
                 </tr>
                 <tr>
-                    <th>national Id</th>
+                    <th>کد ملی</th>
                     <td>
                         <input type="text" name="nationalId"
                                title="Please enter ten digits" oninput="validateNumberForm()" id="num"
@@ -128,7 +116,7 @@
             </table>
         </form>
         <h3>
-            <a href="/realCustomer/welcome">Go welcome</a>
+            <a href="/realCustomer/welcome">صفحه اصلی</a>
         </h3>
 </div>
 </body>

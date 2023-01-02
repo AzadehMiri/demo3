@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Bank Management Application</title>
     <style>
         td, th {
@@ -12,30 +12,25 @@
     </style>
 
 </head>
-<body style="background-color: #FFFFE0; ">
+<body dir="rtl" style="background-color: #FFFFE0; ">
 <center>
-    <h1>Bank customer information management</h1>
+    <h1>مدیریت اطلاعات مشتریان بانک</h1>
     <h2>
-        <a href="insert">Add New LegalCustomer</a>
+        <a href="legal-customer-insert">افزودن مشتری حقوقی</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="list">List All LegalCustomers</a>
+
+        <a href="legal-customer-list">لیست مشتریان</a>
     </h2>
 </center>
 <div align="center" style="margin-top:50px; margin-left:250px; height:50px;">
-    <c:if test="${legalCustomer.id != null}">
-    <form action="update" method="post">
-        </c:if>
-        <c:if test="${legalCustomer.id == null}">
-        <form action="add" method="post">
-            </c:if>
+<%--        <c:if test="${legalCustomer.id == null}">--%>
+        <form action="legal-customer-add" method="post">
+<%--            </c:if>--%>
             <table align="center" style="vertical-align: center; margin-left:20%;">
                 <caption>
                     <h2>
-                        <c:if test="${legalCustomer.id != null}">
-                            Edit LegalCustomer
-                        </c:if>
                         <c:if test="${legalCustomer.id == null}">
-                            Add new LegalCustomer
+                            افزودن مشتری حقوقی
                         </c:if>
                     </h2>
                 </caption>
@@ -43,20 +38,20 @@
                     <input type="hidden" name="id" value="<c:out value="${legalCustomer.id}"/>"/>
                 </c:if>
                 <tr>
-                    <th>company name</th>
+                    <th>نام شرکت</th>
                     <td>
                         <input type="text" name="firstName" size="45"
                                value="<c:out value="${legalCustomer.firstName}"/>"/>
                     </td>
                 </tr>
                 <tr>
-                    <th>Registration Date</th>
+                    <th>تاریخ ثبت نام</th>
                     <td>
                         <input type="text" name="birthDate" size="10" minlength="10"
                                maxlength="10" title="yyyy/yy/yy" value="<c:out value="${legalCustomer.birthDate}"/>"/>
                     </td>
                 </tr>
-                    <th>Economic Code</th>
+                    <th>کد اقتصادی</th>
                     <td>
                         <input type="text" name="nationalId"
                                value="<c:out value="${legalCustomer.nationalId}"/>"/>
