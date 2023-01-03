@@ -10,13 +10,33 @@
             font-family: arial, sans-serif;
         }
     </style>
+    <script type="text/javascript">
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function validate() {
+            var outputPercentageString = document.myForm.outputPercentage.value;
+            var outputPercentage = parseInt(outputPercentageString);
+            if (outputPercentage <= 0 || outputPercentage >= 100) {
+                alert("لطفا درصد را به صورت صحیح وارد کنید");
+                document.myForm.outputPercentage.focus();
+                return false;
+            }
+        }
+    </script>
 </head>
 <body style="background-color: #FFFFE0; ">
 <center>
     <h1>مدیریت تسهیلات مشتریان بانک</h1>
 </center>
 <div align="center">
-    <form action="limitations-add" method="post" name="myForm"  onsubmit="return(validate());">
+    <form action="limitations-add" method="post" name="myForm" onsubmit="return(validate());">
         </br>
         </br>
         </br>
@@ -30,15 +50,21 @@
             <tr>
                 <th>نام تسهیلات</th>
                 <td>
-                    <input type="text" name="name"
-                           value="<c:out value="${facilityType.name}"/>"/>
+                    <input type="text" name="name" onkeypress="validateFacilityNameForm()"
+                           value="<c:out value="${facilityType.name}"/>" required=""
+                           oninvalid="this.setCustomValidity('لطفا نام تسهیلات را وارد کنید')"
+                           oninput="setCustomValidity('')"/>
                 </td>
             </tr>
             <tr>
                 <th>نرخ سود</th>
                 <td>
-                    <input type="text"  name="interestRate" id="outputPercentage"
-                           value="<c:out value="${facilityType.interestRate}"/>"/>
+                    <input type="text" name="interestRate" id="outputPercentage"
+                           value="<c:out value="${facilityType.interestRate}"/>"
+                           onkeypress="return isNumber(event)"
+                           required="" maxlength="3"
+                           oninvalid="this.setCustomValidity('لطفا نرخ سود را وارد کنید')"
+                           onclick="setCustomValidity('')"/>
                 </td>
             </tr>
             <tr>
@@ -50,15 +76,4 @@
     </form>
 </div>
 </body>
-<script type="text/javascript">
-    function validate() {
-        var outputPercentageString = document.myForm.outputPercentage.value;
-        var outputPercentage = parseInt(outputPercentageString);
-        if (outputPercentage <= 0 || outputPercentage >= 100) {
-            alert("لطفا درصد را به صورت صحیح وارد کنید");
-            document.myForm.outputPercentage.focus();
-            return false;
-        }
-    }
-</script>
 </html>

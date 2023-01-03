@@ -88,16 +88,13 @@
         </table>
     </form>
 </div>--%>
-
-
-
 <div style="margin-top:50px; margin-left:100px; height:50px;">
     نام تسهیلات:<input readonly type="text" value="<c:out value="${facilityType.name}"/>" dir="rtl">
     </br>
     </br>
     نرخ سود:<input readonly type="text" value="<c:out value="${facilityType.interestRate}"/>" dir="rtl" >
         <table dir="rtl" align="center" style="vertical-align: center; margin-left:43%;">
-            <tr><th>نام شرط</th><td><input type="text" id="limitationName"/></td></tr>
+            <tr><th>نام شرط</th><td><input type="text" id="limitationName" /></td></tr>
             <tr><th>حداقل مدت</th><td><input type="text" id="minimumContractPeriod"/></td></tr>
             <tr><th>حداکثر مدت</th><td><input type="text" id="maximumContractPeriod"/></td></tr>
             <tr><th>حداقل مبلغ</th><td><input type="text" id="minimumContractAmount"/></td></tr>
@@ -106,7 +103,7 @@
 
         </table>
 
-    <form action="facilityType-add" method="post">
+<%--    <form action="facilityType-add" method="post">--%>
         <input type="hidden" id="facilityName" name="name" value="${facilityType.name}"/>
         <input type="hidden" id="facilityInterestRate" name="interestRate" value="${facilityType.interestRate}"/>
 
@@ -122,8 +119,9 @@
                 <%--<th>عملیات</th>--%>
             </tr>
         </table>
-        <input type="submit" value="ارسال"/>
-    </form>
+    <button onclick="sendDataToBack()">ارسال</button>
+<%--        <input type="submit" value="ارسال"/>--%>
+<%--    </form>--%>
 </div>
 
 
@@ -187,6 +185,16 @@
         facilityType.interestRate = facilityInterestRate;
         facilityType.limitations = limitations;
         console.log(facilityType);
+        return facilityType;
+    }
+
+    function sendDataToBack() {
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "http://localhost:8083/facilityType/facilityType-add",
+            data: JSON.stringify(facilityType)
+        })
     }
 
 </script>

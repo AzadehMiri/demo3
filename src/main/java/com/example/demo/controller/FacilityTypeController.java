@@ -5,10 +5,7 @@ import com.example.demo.service.FacilityTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -39,8 +36,8 @@ private FacilityTypeService facilityTypeService;
     }
 
     @PostMapping("/facilityType-add")
-    public void insertFacility(@ModelAttribute("facilityType") FacilityType facilityType) {
+    public String insertFacility(@RequestBody FacilityType facilityType) {
         facilityTypeService.add(facilityType);
-        System.out.println(facilityType);
+        return "redirect:insert-facility";
     }
 }

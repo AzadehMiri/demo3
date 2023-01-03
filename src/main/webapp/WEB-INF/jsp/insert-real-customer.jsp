@@ -30,7 +30,7 @@
         function validateFirstNameForm() {
             let x = document.forms["myForm"]["fname"].value;
             if (x == "") {
-                alert("Please enter first name");
+                alert("لطفا نام را وارد کنید");
                 return false;
             }
         }
@@ -38,19 +38,19 @@
         function validateLastNameForm() {
             let y = document.forms["myForm"]["lname"].value;
             if (y == "") {
-                alert("Please enter last name");
+                alert("لطفا نام خانوادگی را وارد کنید");
                 return false;
             }
         }
 
-        function validateNumberForm() {
-            var z = document.forms["myForm"]["num"].value;
-            if (/\D/.test(z)) {
-                alert("Please only enter numeric characters only for your nationalId! (Allowed input:0-9)");
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                 return false;
             }
+            return true;
         }
-
     </script>
 </head>
 <body style="background-color: #FFFFE0; ">
@@ -75,7 +75,7 @@
                     <th>نام</th>
                     <td>
                         <input type="text" name="firstName" id="fname" onclick="return validateFirstNameForm()" size="45"
-                               value="<c:out value="${realCustomer.firstName}"/>"/>
+                               value="<c:out value="${realCustomer.firstName}"/>" />
                     </td>
                 </tr>
                 <tr>
@@ -103,8 +103,8 @@
                     <th>کد ملی</th>
                     <td>
                         <input type="text" name="nationalId"
-                               title="Please enter ten digits" oninput="validateNumberForm()" id="num"
-                               value="<c:out value="${realCustomer.nationalId}"/>"/>
+                               title="Please enter ten digits" oninput="validateNumberForm()" id="num" onkeypress="return isNumber(event)"
+                               value="<c:out value="${realCustomer.nationalId}"/>" maxlength="10"/>
 
                     </td>
                 </tr>

@@ -18,8 +18,8 @@ public class testController {
     }
 
     @PostMapping(value = {"/", ""})
-    public FacilityType add(@RequestBody FacilityType facilityType) {
-        return facilityTypeService.add(facilityType);
+    public void add(@RequestBody FacilityType facilityType) {
+        facilityTypeService.add(facilityType);
     }
 
     @GetMapping(value = "/delete/{id}")

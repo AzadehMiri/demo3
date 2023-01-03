@@ -17,16 +17,13 @@ public class FacilityTypeService {
     private final FacilityTypeRepository facilityTypeRepository;
     private final LimitationRepository limitationRepository;
 
-    public FacilityType add(FacilityType facilityType) {
-        FacilityType insertedFacilityType = facilityTypeRepository.save(facilityType);
-        List<Limitation> limitations = new ArrayList<>();
+    public void add(FacilityType facilityType) {
+        FacilityType insertedFacilityType = new FacilityType();
+        insertedFacilityType.setId(facilityTypeRepository.save(facilityType).getId());
         for (Limitation limitation : facilityType.getLimitations()) {
             limitation.setFacilityType(insertedFacilityType);
-            Limitation insertedLimitation = limitationRepository.save(limitation);
-            limitations.add(insertedLimitation);
+            limitationRepository.save(limitation);
         }
-        insertedFacilityType.setLimitations(limitations);
-        return insertedFacilityType;
     }
 
     public List<FacilityType> findAllFacilityTypes() {
