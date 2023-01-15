@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Limitation {
@@ -27,7 +26,7 @@ public class Limitation {
     private BigDecimal maximumContractAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="facilityType_id")
+    @JoinColumn(name = "facilityType_id")
     @JsonIgnore
     private FacilityType facilityType;
 }

@@ -16,7 +16,6 @@ public class LegalCustomerService {
     private final LegalCustomerRepository legalCustomerRepository;
 
     public String generateCustomerCode() {
-        // String yearString = economicCode.substring(0, 4)
         Random random = new Random();
         int x = random.nextInt(900) + 100;
         String s = String.valueOf(x);
@@ -25,8 +24,6 @@ public class LegalCustomerService {
 
     public LegalCustomer add(LegalCustomer legalCustomer) {
         String customerCode = generateCustomerCode();
-        //use Builder pattern
-
         legalCustomer.setFirstName(legalCustomer.getFirstName());
         legalCustomer.setBirthDate(legalCustomer.getBirthDate());
         legalCustomer.setNationalId(legalCustomer.getNationalId());

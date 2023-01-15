@@ -7,7 +7,6 @@ import com.example.demo.repository.LimitationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,13 +16,25 @@ public class FacilityTypeService {
     private final FacilityTypeRepository facilityTypeRepository;
     private final LimitationRepository limitationRepository;
 
-    public void add(FacilityType facilityType) {
+    public boolean add(FacilityType facilityType) {
         FacilityType insertedFacilityType = new FacilityType();
         insertedFacilityType.setId(facilityTypeRepository.save(facilityType).getId());
         for (Limitation limitation : facilityType.getLimitations()) {
             limitation.setFacilityType(insertedFacilityType);
             limitationRepository.save(limitation);
         }
+        return true;
+    }
+
+    public boolean update(Long id, FacilityType facilityType) {
+        FacilityType existingFacilityType = facilityTypeRepository.findById(id).orElse(null);
+        FacilityType facilityType1 = new FacilityType();
+        facilityType1.setId(existingFacilityType.getId());
+        for (Limitation limitation : facilityType.getLimitations()) {
+            limitation.setFacilityType(facilityType1);
+            limitationRepository.save(limitation);
+        }
+        return true;
     }
 
     public List<FacilityType> findAllFacilityTypes() {
@@ -36,24 +47,22 @@ public class FacilityTypeService {
 
     public FacilityType updateFacilityType(Long id, FacilityType facilityType) {
         FacilityType existingFacilityType = facilityTypeRepository.findById(id).orElse(null);
-        //  Limitation existingLimitation = limitationRepository.findById(id).orElse(null);
         assert existingFacilityType != null;
-        // assert existingLimitation != null;
         existingFacilityType.setName(Optional.ofNullable(facilityType.getName()).orElse(existingFacilityType.getName()));
         existingFacilityType.setInterestRate(Optional.ofNullable(facilityType.getInterestRate()).orElse(existingFacilityType.getInterestRate()));
-        /*List<Limitation> limitationList = new ArrayList<>();
-        for (Limitation limitation : facility.getLimitations()) {
-            limitation.setLimitationName(Optional.ofNullable(limitation.getLimitationName()).orElse(existingLimitation.getLimitationName()));
-            limitation.setMinimumContractPeriod(Optional.ofNullable(limitation.getMinimumContractPeriod()).orElse(existingLimitation.getMinimumContractPeriod()));
-            limitation.setMinimumContractPeriod(Optional.ofNullable(limitation.getMaximumContractPeriod()).orElse(existingLimitation.getMaximumContractPeriod()));
-            limitation.setMinimumContractAmount(Optional.ofNullable(limitation.getMinimumContractAmount()).orElse(existingLimitation.getMinimumContractAmount()));
-            limitation.setMaximumContractAmount(Optional.ofNullable(limitation.getMaximumContractAmount()).orElse(existingLimitation.getMaximumContractAmount()));
-            limitationList.add(limitation);
-        }
-        existingFacility.setLimitations(limitationList);*/
         return facilityTypeRepository.save(existingFacilityType);
     }
+
     public FacilityType findById(Long id) {
         return Optional.of(facilityTypeRepository.findById(id)).get().orElse(null);
+    }
+
+    public FacilityType findByNameAndInterestRate(String name, String interestRate) {
+        FacilityType facilityType = facilityTypeRepository.findByNameAndInterestRate(name, interestRate);
+        return facilityType;
+    }
+
+    public boolean existByNameAndInterestRate(String name, String interestRate) {
+        return facilityTypeRepository.existsFacilityTypeByNameAndInterestRate(name, interestRate);
     }
 }

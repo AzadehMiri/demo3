@@ -103,7 +103,7 @@
                     <th>کد ملی</th>
                     <td>
                         <input type="text" name="nationalId"
-                               title="Please enter ten digits" oninput="validateNumberForm()" id="num" onkeypress="return isNumber(event)"
+                               title="لطفا ده رقم وارد کنید" oninput="validateNumberForm()" id="num" onkeypress="return isNumber(event)"
                                value="<c:out value="${realCustomer.nationalId}"/>" maxlength="10"/>
 
                     </td>

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="fa">
@@ -12,6 +12,7 @@
             border-collapse: collapse;
             width: 80%;
         }
+
         .search {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -25,7 +26,7 @@
         }
     </style>
 </head>
-<body  style="background-color: #FFFFE0;">
+<body style="background-color: #FFFFE0;">
 <center>
     <h1>مدیریت اطلاعات مشتریان بانک</h1>
     <h2>
@@ -79,7 +80,7 @@
     <table class="list" dir="rtl" style="margin-top: 0px;margin-left: 100px; ">
         <caption><h2>لیست مشتری</h2></caption>
         <tr>
-            <th> </th>
+            <th></th>
             <th>نام شرکت</th>
             <th>تاریخ ثبت نام</th>
             <th>کد اقتصادی</th>
@@ -96,7 +97,7 @@
                 <td><c:out value="${legalCustomer.customerNumber}"/></td>
                 <td>مشتری حقوقی</td>
                 <td>
-                    <a  href="legal-customer-edit?id=<c:out value='${legalCustomer.id}'/>">ویرایش</a>
+                    <a href="legal-customer-edit?id=<c:out value='${legalCustomer.id}'/>">ویرایش</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="legal-customer-delete?id=<c:out value='${legalCustomer.id}'/>">حذف</a>
                 </td>

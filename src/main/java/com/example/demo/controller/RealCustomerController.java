@@ -78,7 +78,7 @@ public class RealCustomerController {
     }
 
     @GetMapping(value = "/get/{id}")
-    public RealCustomer getFacility(@PathVariable Long id,
+    public RealCustomer getFacility(@PathVariable String id,
                                     @RequestParam Long facilityId,
                                     @RequestParam BigDecimal amount,
                                     @RequestParam Integer period) {
@@ -99,13 +99,5 @@ public class RealCustomerController {
         model.put("realCustomer", realCustomer);
         model.put("facilityTypeList", facilityTypeList);
         return "get-facility";
-    }
-
-    @PostMapping(value = "get-facilityType-for-customer/{customerId}/{facilityId}/{contractAmount}/{contractPeriod}")
-    public RealCustomer getFacilityForCustomer(@PathVariable Long customerId,
-                                    @PathVariable Long facilityId,
-                                    @PathVariable BigDecimal contractAmount,
-                                    @PathVariable Integer contractPeriod) {
-        return realCustomerService.getFacility(customerId, facilityId, contractAmount, contractPeriod);
     }
 }

@@ -27,6 +27,7 @@ public class LegalCustomerController {
     public String getLegalCustomer() {
         return "legal-customer-list";
     }
+
     @GetMapping(value = "/legal-customer-list")
     public String getLegalCustomer(ModelMap model) {
         List<LegalCustomer> legalCustomers = legalCustomerService.findAllLegalCustomers();

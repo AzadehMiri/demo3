@@ -66,64 +66,65 @@
     <c:if test="${realCustomer.id != null}">
     <form action="real-customer-update" method="post" name="myForm" onsubmit="validateForm()">
         </c:if>
-            <table dir="rtl" align="center" style="vertical-align: center; margin-left:20%;">
-                <caption>
-                    <h2>
-                        <c:if test="${realCustomer.id != null}">
-                            ویرایش اطلاعات
-                        </c:if>
-                    </h2>
-                </caption>
-                <c:if test="${realCustomer != null}">
-                    <input type="hidden" name="id" value="<c:out value="${realCustomer.id}"/>"/>
-                </c:if>
-                <tr>
-                    <th>نام</th>
-                    <td>
-                        <input type="text" name="firstName" id="fname" onclick="return validateFirstNameForm()" size="45"
-                               value="<c:out value="${realCustomer.firstName}"/>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>نام خانوادگی</th>
-                    <td>
-                        <input type="text" name="lastName" id="lname" onclick="return validateLastNameForm()" size="45"
-                               value="<c:out value="${realCustomer.lastName}"/>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>نام پدر</th>
-                    <td>
-                        <input type="text" name="fatherName" size="45"
-                               value="<c:out value="${realCustomer.fatherName}"/>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>تاریخ تولد</th>
-                    <td>
-                        <input type="text" name="birthDate" placeholder="yyyy/mm/dd" value="<c:out value="${realCustomer.birthDate}"/>"
-                               size="10" min="1300/01/01" max="1420/01/01" title="yyyy/yy/yy" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>کد ملی</th>
-                    <td>
-                        <input type="text" name="nationalId"
-                               title="Please enter ten digits" oninput="validateNumberForm()" id="num"
-                               value="<c:out value="${realCustomer.nationalId}"/>"/>
+        <table dir="rtl" align="center" style="vertical-align: center; margin-left:20%;">
+            <caption>
+                <h2>
+                    <c:if test="${realCustomer.id != null}">
+                        ویرایش اطلاعات
+                    </c:if>
+                </h2>
+            </caption>
+            <c:if test="${realCustomer != null}">
+                <input type="hidden" name="id" value="<c:out value="${realCustomer.id}"/>"/>
+            </c:if>
+            <tr>
+                <th>نام</th>
+                <td>
+                    <input type="text" name="firstName" id="fname" onclick="return validateFirstNameForm()" size="45"
+                           value="<c:out value="${realCustomer.firstName}"/>"/>
+                </td>
+            </tr>
+            <tr>
+                <th>نام خانوادگی</th>
+                <td>
+                    <input type="text" name="lastName" id="lname" onclick="return validateLastNameForm()" size="45"
+                           value="<c:out value="${realCustomer.lastName}"/>"/>
+                </td>
+            </tr>
+            <tr>
+                <th>نام پدر</th>
+                <td>
+                    <input type="text" name="fatherName" size="45"
+                           value="<c:out value="${realCustomer.fatherName}"/>"/>
+                </td>
+            </tr>
+            <tr>
+                <th>تاریخ تولد</th>
+                <td>
+                    <input type="text" name="birthDate" placeholder="yyyy/mm/dd"
+                           value="<c:out value="${realCustomer.birthDate}"/>"
+                           size="10" min="1300/01/01" max="1420/01/01" title="yyyy/yy/yy"/>
+                </td>
+            </tr>
+            <tr>
+                <th>کد ملی</th>
+                <td>
+                    <input type="text" name="nationalId"
+                           title="Please enter ten digits" oninput="validateNumberForm()" id="num"
+                           value="<c:out value="${realCustomer.nationalId}"/>"/>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="save"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <h3>
-            <a href="/realCustomer/welcome">صفحه اصلی</a>
-        </h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="save"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <h3>
+        <a href="/realCustomer/welcome">صفحه اصلی</a>
+    </h3>
 </div>
 </body>
 </html>

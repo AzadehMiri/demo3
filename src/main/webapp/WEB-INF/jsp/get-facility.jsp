@@ -6,164 +6,242 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+
     <title>Bank Management Application</title>
     <style>
-        .list {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 80%;
-        }
-
         td, th {
             border: 1px solid #dddddd;
             text-align: right;
             padding: 8px;
         }
-
-        .insert {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 40%;
-        }
     </style>
 </head>
 <body style="background-color: #FFFFE0; ">
-<%--<center>
-    <h1>شروط تسهیلات</h1>
-    <h2>
-        <a href="condition-insert">افزودن شرط</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="condition-list">لیست شروط</a>
-    </h2>
-</center>--%>
-<%--<div align="center" style="margin-top:50px; margin-left:250px; height:50px;">
-    <form action="facilityType-add">
-        <c:out value="${facilityType.name}"/>
-        <c:out value="${facilityType.interestRate}"/>
-        <table class="insert" dir="rtl" align="center" style="vertical-align: center; margin-left:20%;">
-            <caption>
-                <h2>
-                    افزودن شرط تسهیلات
-                </h2>
-            </caption>
-            <tr>
-                <th>نام شرط</th>
-                <td>
-                    <input type="text" name="limitationName" value="<c:out value="${limitation.limitationName}"/>"/>
-                </td>
-            </tr>
-            <tr>
-                <th>حداقل مدت</th>
-                <td>
-                    <input type="text" name="MinimumContractPeriod"
-                           value="<c:out value="${limitation.MinimumContractPeriod}"/>"/>
-                </td>
-            </tr>
-            <tr>
-                <th>حداکثر مدت</th>
-                <td>
-                    <input type="text" name="MaximumContractPeriod"
-                           value="<c:out value="${limitation.MaximumContractPeriod}"/>"/>
-                </td>
-            </tr>
-            <tr>
-                <th>حداقل مبلغ</th>
-                <td>
-                    <input type="text" name="MinimumContractAmount"
-                           value="<c:out value="${limitation.MinimumContractAmount}"/>"/>
-                </td>
-            </tr>
-            <tr>
-                <th>حداکثر مبلغ</th>
-                <td>
-                    <input type="text" name="MaximumContractAmount"
-                           value="<c:out value="${limitation.MaximumContractAmount}"/>"/>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" onclick="access()" value="save"/>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>--%>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-8">
+            <div>
+                <div class="form-group">
+                    <div class="text-right">
+                        <label for="customerNumber"> شماره مشتری </label>
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" id="customerNumber" name="customerNumber" dir="rtl">
+                    </div>
+                </div>
+
+                <div class="form-group text-right">
+                    <input type="button" class="btn btn-primary" value="بازیابی" onclick="sample1()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-8">
+            <div class="form-group">
+                <div class="text-right">
+                    <label for="customerId">
+                        شماره مشتری
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control" type="text" readonly value="${realCustomer.customerNumber}" dir="rtl"
+                           id="customerId">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-right">
+                    <label for="firstName">
+                        نام
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control" type="text" readonly value="${realCustomer.firstName}" dir="rtl"
+                           id="firstName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-right">
+                    <label for="lastName">
+                        نام خانوادگی
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control" type="text" readonly value="${realCustomer.lastName}" dir="rtl"
+                           id="lastName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <div class="text-right">
+                        <label for="facilityId">
+                            انتخاب طرح
+                        </label>
+                    </div>
+                    <div>
+                        <select class="form-control" name="facilityName" id="facilityId">
+                            <option name="facilityType">انتخاب کنید</option>
+                            <c:forEach items="${facilityTypeList}" var="facilityType">
+                                <option name="facilityType" value="${facilityType.id}">${facilityType.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="text-right">
+                            <label for="contractAmount">
+                                مبلغ وام درخواستی (تومان)
+                            </label>
+                        </div>
+                        <div>
+                            <input class="form-control" type="text" value="${contractAmount}" dir="rtl"
+                                   id="contractAmount" onkeyup="fixPrice()">
+                            <b id="contractAmountResult"></b>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-right">
+                            <label for="contractPeriod">
+                                مدت وام درخواستی (ماه)
+                            </label>
+                        </div>
+                        <div>
+                            <input class="form-control" type="text" value="${contractPeriod}" dir="rtl"
+                                   id="contractPeriod">
+                        </div>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <input type="button" class="btn btn-primary" value="ارسال" onclick="sample()"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
-
-<div style="margin-top:50px; margin-left:100px; height:50px;">
-
-    <form action="find-by-customer-number" method="post">
-        شماره مشتری: <input type="text" id="customerNumber" name="customerNumber" dir="rtl">
-        <input type="submit" value="بازیابی">
-    </form>
-    </br>
-    </br>
-    شماره مشتری: <input type="text" readonly value="${realCustomer.customerNumber}" dir="rtl">
-    </br>
-    نام: <input type="text" readonly value="${realCustomer.firstName}" dir="rtl">
-    </br>
-    نام خانوادگی: <input type="text" readonly value="${realCustomer.lastName}" dir="rtl">
-    </br>
-    </br>
-    </br>
-    <form name="customerform" method="post" onsubmit="OnSubmitForm();">
-        انتخاب طرح:<select name="facilityName" id="facilityId">
-            <option name="facilityType">انتخاب کنید</option>
-            <c:forEach items="${facilityTypeList}" var="facilityType">
-                <option name="facilityType" value="${facilityType.id}">${facilityType.name}</option>
-            </c:forEach>
-        </select>
-        </br>
-        <input type="text" id="customerId" hidden value="${realCustomer.id}" dir="rtl">
-        مبلغ وام درخواستی: <input type="text" id="contractAmount" name="contractAmount"
-                                  value="<c:out value="${contractAmount}"/>" dir="rtl">
-        </br>
-        مدت وام درخواستی: <input type="text" id="contractPeriod" name="contractPeriod"
-                                 value="<c:out value="${contractPeriod}"/>" dir="rtl">
-
-        <input type="submit" value="submit"/>
-    </form>
-<%--    </br>--%>
-<%--    </br>--%>
-<%--    <a href="get-facilityType-by-customer?customerId=<c:out value='${realCustomer.id}'/>&facilityId=<c:out value='${facilityType.id}'/>&contractAmount=<c:out value='${contractAmount}'/>?contractPeriod=<c:out value='${contractPeriod}'/>">ارسال درخواست</a>--%>
 </div>
 
+<button type="button" id="btnShowModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
+    Launch demo modal
+</button>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-right" id="exampleModalLabel">نتیجه عملیات</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-right" id="showData">
 
+            </div>
+            <div class="modal-footer">
+                <a href="/realCustomer/get-facility" class="btn btn-primary">بازگشت</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-</body>
 <script type="text/javascript">
-
-    function OnSubmitForm()
-    {
+    function sample() {
         var customerId = document.getElementById("customerId").value;
         var facilityId = document.getElementById("facilityId").value;
         var contractAmount = document.getElementById("contractAmount").value;
         var contractPeriod = document.getElementById("contractPeriod").value;
-        document.customerform.action="/realCustomer/get-facilityType-for-customer/" + customerId + "/" + facilityId + "/" + contractAmount + "/" +contractPeriod;
+        $.ajax({
+            url: "/test/get-facilityType-for-customer/" + customerId + "/" + facilityId + "/" + contractAmount + "/" + contractPeriod,
+            data: {},
+            method: "post",
+            success: function (result) {
+                const showData = document.getElementById("showData");
+                if (showData) {
+                    if (result.status) {
+                        showData.innerHTML = '<span class="text-success">' + result.data + '</span>';
+                    } else {
+                        showData.innerHTML = '<span class="text-danger">' + result.data + '</span>';
+                    }
+                }
+                startModal();
+            }
+        });
     }
 
-    /*function retrieval() {
+    function sample1() {
+        var customerNumber = document.getElementById("customerNumber").value;
+        $.ajax({
+            url: "/test/find-by-customer-number/" + customerNumber,
+            data: {},
+            method: "post",
+            success: function (result) {
+                const showData = document.getElementById("showData");
+                if (showData) {
+                    if (result.status === 'موجود') {
+                        getCustomerData();
+                    } else {
+                        showData.innerHTML = '<span class="text-danger">' + result.status + '</span>';
+                        startModal();
+                    }
+                }
 
-        firstName = firstName;
-        lastName = lastName;
-
-        resetInput();
-        sendData();
+            }
+        });
     }
 
-    function sendData() {
-        let facilityName = "";
-        let facilityInterestRate = "";
-        facilityName = document.getElementById("facilityName").value;
-        facilityInterestRate = document.getElementById("facilityInterestRate").value;
-        facilityType.name = facilityName;
-        facilityType.interestRate = facilityInterestRate;
-        facilityType.limitations = limitations;
-        console.log(facilityType);
-    }*/
+    function getCustomerData() {
+        var form = $('<form></form>');
 
+        var customerNumber = document.getElementById("customerNumber").value;
+
+        form.attr("method", "post");
+        form.attr("action", "http://localhost:8083/realCustomer/find-by-customer-number/");
+
+        var field1 = $('<input></input>');
+        field1.attr("type", "hidden");
+        field1.attr("name", "customerNumber");
+        field1.attr("value", customerNumber);
+        form.append(field1);
+
+        // The form needs to be a part of the document in
+        // order for us to be able to submit it.
+        $(document.body).append(form);
+        form.submit();
+    }
+
+    function startModal() {
+        $("#btnShowModal").click();
+    }
+
+    function OnSubmitForm() {
+        var customerId = document.getElementById("customerId").value;
+        var facilityId = document.getElementById("facilityId").value;
+        var contractAmount = document.getElementById("contractAmount").value;
+        var contractPeriod = document.getElementById("contractPeriod").value;
+        document.customerForm.action = "/test/get-facilityType-for-customer/" + customerId + "/" + facilityId + "/" + contractAmount + "/" + contractPeriod;
+    }
+
+    function fixPrice() {
+        var contractAmount = document.getElementById("contractAmount");
+        var contractAmountResult = document.getElementById("contractAmountResult");
+        let x = contractAmount.value;
+        let y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        contractAmountResult.innerText = y;
+    }
 </script>
+</body>
 </html>

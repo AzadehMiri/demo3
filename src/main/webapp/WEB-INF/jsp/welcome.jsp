@@ -14,6 +14,9 @@
         <a href="/realCustomer/">مشتری حقیقی</a>
         &nbsp;&nbsp;&nbsp;
         <a href="/legalCustomer/">مشتری حقوقی</a>
+        </br>
+        </br>
+        <a href="/facilityType/">مدیریت تسهیلات</a>
     </h2>
 </div>
 </body>

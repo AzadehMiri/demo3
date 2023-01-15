@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.*;
 import com.example.demo.exception.InvalidNationalIDException;
+import com.example.demo.repository.LegalCustomerRepository;
 import com.example.demo.repository.LimitationRepository;
 import com.example.demo.repository.RealCustomerRepository;
 import com.example.demo.validation.Validation;
@@ -18,6 +19,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class RealCustomerService {
     private final RealCustomerRepository realCustomerRepository;
+    private final LegalCustomerRepository legalCustomerRepository;
     private final LimitationRepository limitationRepository;
 
     private FacilityService facilityService;
@@ -77,6 +79,10 @@ public class RealCustomerService {
         return Optional.of(realCustomerRepository.findById(id)).get().orElse(null);
     }
 
+    public RealCustomer findByCustomerNumber(String customerNumber) {
+        return Optional.of(realCustomerRepository.findRealCustomerByCustomerNumber(customerNumber)).get();
+    }
+
     public List<RealCustomer> search(RealCustomer realCustomer) {
         return realCustomerRepository.search(
                 Optional.ofNullable(realCustomer.getFirstName()).orElse(""),
@@ -86,8 +92,8 @@ public class RealCustomerService {
         );
     }
 
-    public RealCustomer getFacility(Long id, Long facilityTypeId, BigDecimal amount, Integer period) {
-        RealCustomer customer = findById(id);
+    public RealCustomer getFacility(String customerId, Long facilityTypeId, BigDecimal amount, Integer period) {
+        RealCustomer customer = findByCustomerNumber(customerId);
         List<Limitation> limitations = limitationRepository.findByFacilityType_Id(facilityTypeId);
         boolean canGetFacility = Validation.getFacilityTypeValidation(limitations, amount, period);
         if (canGetFacility) {
@@ -108,8 +114,46 @@ public class RealCustomerService {
         return realCustomerRepository.save(customer);
     }
 
+    public boolean takeFacility(String customerId, Long facilityTypeId, BigDecimal amount, Integer period) {
+        RealCustomer customer = findByCustomerNumber(customerId);
+        List<Limitation> limitations = limitationRepository.findByFacilityType_Id(facilityTypeId);
+        boolean canGetFacility = Validation.getFacilityTypeValidation(limitations, amount, period);
+        if (canGetFacility) {
+            FacilityType facilityType = new FacilityType();
+            facilityType.setId(facilityTypeId);
+            List<FacilityType> facilityTypeList = new ArrayList<>();
+            facilityTypeList.add(facilityType);
+            customer.setFacilityTypes(facilityTypeList);
+            Facility facility = Facility.builder()
+                    .amount(amount)
+                    .period(period)
+                    .customer(customer)
+                    .facilityType(facilityType)
+                    .build();
+            facilityService.add(facility);
+            realCustomerRepository.save(customer);
+            return true;
+        }
+
+        return false;
+    }
+
+    public String checkCustomerByCustomerNumber(String customerNumber) {
+        RealCustomer realCustomer = realCustomerRepository.findRealCustomerByCustomerNumber(customerNumber);
+        if (realCustomer == null) {
+            LegalCustomer legalCustomer = legalCustomerRepository.findLegalCustomerByCustomerNumber(customerNumber);
+            if (legalCustomer != null) {
+                return "تسهیلات به مشتری حقوقی تعلق نمی گیرد";
+            } else {
+                return "شماره مشتری ناموجود";
+            }
+        }
+        return "موجود";
+    }
+
     public RealCustomer getCustomerByCustomerNumber(String customerNumber) {
-        return realCustomerRepository.findRealCustomerByCustomerNumber(customerNumber);
+        RealCustomer realCustomer = realCustomerRepository.findRealCustomerByCustomerNumber(customerNumber);
+        return realCustomer;
     }
 }
 
