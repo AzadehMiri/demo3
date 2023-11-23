@@ -1,64 +1,71 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Bank Management Application</title>
     <style>
-        table {
+        .list {
             font-family: arial, sans-serif;
             border-collapse: collapse;
-            width: 60%;
+            width: 80%;
+        }
+
+        .search {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 40%;
         }
 
         td, th {
             border: 1px solid #dddddd;
-            text-align: left;
+            text-align: right;
             padding: 8px;
         }
     </style>
 </head>
 <body style="background-color: #FFFFE0;">
 <center>
-    <h1>Bank customer information management</h1>
+    <h1>مدیریت اطلاعات مشتریان بانک</h1>
     <h2>
-        <a href="insert">Add New LegalCustomer</a>
+        <a href="legal-customer-insert">افزودن مشتری</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="list">List All LegalCustomers</a>
+        <a href="legal-customer-list">لیست مشتری حقوقی</a>
+
         </br>
         </br>
         </br>
+
     </h2>
     <hr>
-    <form action="search" method="post">
-        <table align="center" style="vertical-align: center; margin-left:20%;">
+    <form action="legal-customer-search" method="post">
+        <table class="search" align="center" dir="rtl" style="vertical-align: center; margin-left:30%;">
             <caption>
                 <h2>
-                    Search LegalCustomer
+                    جستجوی پیشرفته
                 </h2>
             </caption>
             <tr>
-                <th>Company Name</th>
+                <th>نام شرکت</th>
                 <td>
-                    <input type="text" name="companyName" size="45"
+                    <input type="text" name="firstName" size="45"
                            value="<c:out value="${legalCustomer.firstName}"/>"/>
                 </td>
             </tr>
-                <th>Economic Code</th>
+            <tr>
+                <th>تاریخ ثبت نام</th>
                 <td>
-                    <input type="text" name="economicCode" size="45"
-                           value="<c:out value="${legalCustomer.nationalId}"/>"/>
+                    <input type="text" name="birthDate" size="10" minlength="10"
+                           maxlength="10" title="yyyy/yy/yy" value="<c:out value="${legalCustomer.birthDate}"/>"/>
                 </td>
             </tr>
-            <tr>
-                <th>Customer Number</th>
-                <td>
-                    <input type="text" name="customerNumber" size="45"
-                           value="<c:out value="${legalCustomer.customerNumber}"/>"/>
-
-                </td>
+            <th>کد تقتصادی</th>
+            <td>
+                <input type="text" name="nationalId"
+                       value="<c:out value="${legalCustomer.nationalId}"/>"/>
+            </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
@@ -67,19 +74,19 @@
             </tr>
         </table>
     </form>
-    <hr>
 </center>
-<div  style="margin-top:50px; margin-left:200px; height:50px;">
-    <table style="margin-top: 0px;margin-left: 100px; ">
-        <caption><h2>List of legal customers</h2></caption>
+
+<div style="margin-top:50px; margin-left:100px; height:50px;">
+    <table class="list" dir="rtl" style="margin-top: 0px;margin-left: 100px; ">
+        <caption><h2>لیست مشتری</h2></caption>
         <tr>
-            <th>Id</th>
-            <th>Company Name</th>
-            <th>Registration Date</th>
-            <th>Economic Code</th>
-            <th>Customer Number</th>
-            <th>Customer Type</th>
-            <th>Action</th>
+            <th></th>
+            <th>نام شرکت</th>
+            <th>تاریخ ثبت نام</th>
+            <th>کد اقتصادی</th>
+            <th>شماره مشتری</th>
+            <th>نوع مشتری</th>
+            <th>عملیات</th>
         </tr>
         <c:forEach var="legalCustomer" items="${legalCustomers}">
             <tr>
@@ -88,17 +95,17 @@
                 <td><c:out value="${legalCustomer.birthDate}"/></td>
                 <td><c:out value="${legalCustomer.nationalId}"/></td>
                 <td><c:out value="${legalCustomer.customerNumber}"/></td>
-                <td><c:out value="${legalCustomer.customerType}"/></td>
+                <td>مشتری حقوقی</td>
                 <td>
-                    <a  href="edit?id=<c:out value='${legalCustomer.id}'/>">Edit</a>
+                    <a href="legal-customer-edit?id=<c:out value='${legalCustomer.id}'/>">ویرایش</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="delete?id=<c:out value='${legalCustomer.id}'/>">Delete</a>
+                    <a href="legal-customer-delete?id=<c:out value='${legalCustomer.id}'/>">حذف</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <h3>
-        <a href="/legalCustomer/welcome">Go welcome</a>
+        <a href="/realCustomer/welcome">صفحه اصلی</a>
     </h3>
 </div>
 </body>

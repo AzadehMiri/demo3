@@ -23,45 +23,50 @@ public class LegalCustomerController {
         return "welcome";
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/")
+    public String getLegalCustomer() {
+        return "legal-customer-list";
+    }
+
+    @GetMapping(value = "/legal-customer-list")
     public String getLegalCustomer(ModelMap model) {
         List<LegalCustomer> legalCustomers = legalCustomerService.findAllLegalCustomers();
         model.put("legalCustomers", legalCustomers);
         return "legal-customer-list";
     }
 
-    @GetMapping("/insert")
+    @GetMapping("/legal-customer-insert")
     public String insert(Map<String, Object> model) {
         model.put("legalCustomer", new LegalCustomer());
-        return "insert-or-update-legal-customer";
+        return "insert-legal-customer";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/legal-customer-add")
     public String create(@ModelAttribute("legalCustomer") LegalCustomer legalCustomer) throws InvalidNationalIDException {
         legalCustomerService.add(legalCustomer);
-        return "redirect:list";
+        return "redirect:legal-customer-list";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/legal-customer-edit")
     public String edit(@RequestParam("id") String id, Map<String, Object> model) {
         LegalCustomer legalCustomer = legalCustomerService.findById(Long.parseLong(id));
         model.put("legalCustomer", legalCustomer);
-        return "insert-or-update-legal-customer";
+        return "update-legal-customer";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/legal-customer-update")
     public String update(@ModelAttribute("legalCustomer") LegalCustomer legalCustomer) {
         legalCustomerService.updateLegalCustomer(legalCustomer.getId(), legalCustomer);
-        return "redirect:list";
+        return "redirect:legal-customer-list";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/legal-customer-delete")
     public String delete(@RequestParam("id") String id) {
         legalCustomerService.delete(Long.parseLong(id));
-        return "redirect:list";
+        return "redirect:legal-customer-list";
     }
 
-    @PostMapping("/search")
+    @PostMapping("/legal-customer-search")
     public String search(Model model, @ModelAttribute("legalCustomer") LegalCustomer legalCustomer) {
         List<LegalCustomer> legalCustomerSearchList = legalCustomerService.search(legalCustomer);
         model.addAttribute("legalCustomers", legalCustomerSearchList);

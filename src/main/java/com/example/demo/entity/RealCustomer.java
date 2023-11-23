@@ -13,5 +13,4 @@ import javax.persistence.Entity;
 @ToString
 @AllArgsConstructor
 public class RealCustomer extends Customer {
-
 }
